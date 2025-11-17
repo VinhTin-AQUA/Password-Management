@@ -1,1 +1,74 @@
-<p>settings works!</p>
+<div class="max-w-md mx-auto mt-10 space-y-6 p-6 bg-white rounded-2xl shadow-lg">
+    <!-- Language Selector -->
+    <div>
+        <label class="block font-semibold mb-2 text-gray-700">Language</label>
+
+        <div class="relative" (click)="toggleLanguage()">
+            <!-- Selected Box -->
+            <button
+                class="w-full flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl border border-gray-300 hover:bg-gray-200 transition cursor-pointer"
+            >
+                <div class="flex items-center gap-3">
+                    <img [src]="selectedLanguage.flag" class="w-6 h-6 rounded-sm" />
+                    <span>{{ selectedLanguage.label }}</span>
+                </div>
+                <span class="material-icons">expand_more</span>
+            </button>
+
+            <!-- Dropdown -->
+            @if (openLanguage) {
+            <ul
+                class="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-xl z-20 overflow-hidden"
+            >
+                @for (lang of languages; track $index) {
+                <li
+                    (click)="selectLanguage(lang)"
+                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                >
+                    <img [src]="lang.flag" class="w-6 h-6 rounded-sm" />
+                    <span>{{ lang.label }}</span>
+                </li>
+                }
+            </ul>
+            }
+        </div>
+    </div>
+
+    <!-- Theme Selector -->
+    <div>
+        <label class="block font-semibold mb-2 text-gray-700">Theme</label>
+
+        <div class="relative" (click)="toggleTheme()">
+            <!-- Selected Theme -->
+            <button
+                class="w-full flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl border border-gray-300 hover:bg-gray-200 transition cursor-pointer"
+            >
+                <div class="flex items-center gap-3">
+                    <span
+                        class="w-6 h-6 rounded-full"
+                        [style.background]="selectedTheme.color"
+                    ></span>
+                    <span>{{ selectedTheme.label }}</span>
+                </div>
+                <span class="material-icons">expand_more</span>
+            </button>
+
+            <!-- Dropdown -->
+            @if (openTheme) {
+            <ul
+                class="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-xl z-20 overflow-hidden"
+            >
+                @for (theme of themes; track $index) {
+                <li
+                    (click)="selectTheme(theme)"
+                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                >
+                    <span class="w-6 h-6 rounded-full" [style.background]="theme.color"></span>
+                    <span>{{ theme.label }}</span>
+                </li>
+                }
+            </ul>
+            }
+        </div>
+    </div>
+</div>

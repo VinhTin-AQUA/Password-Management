@@ -8,5 +8,11 @@
         "addInvoice": "AddInvoice",
         "configDetails": "ConfigDetails",
         "settings": "Settings"
-    }
+    },
+    "userName": "User name",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "note": "Note",
+    "addNewAccount": "Add new account",
+    "saveAccount": "Save account"
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-add-account',
-    imports: [FormsModule],
+    imports: [FormsModule, TranslatePipe],
     templateUrl: './add-account.html',
     styleUrl: './add-account.scss',
 })
