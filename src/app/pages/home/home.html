@@ -2,6 +2,7 @@
     <!-- Accounts List -->
     @for (acc of accounts; track $index) {
     <div
+        [routerLink]="`/${mainRoute}/${mainRoutes.EditAccount}`"
         (clickOutside)="closeContextMenu()"
         class="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-md active:scale-[0.97] transition transform duration-200"
     >
@@ -43,12 +44,6 @@
             <div
                 class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-700 shadow-xl rounded-xl border border-gray-100 dark:border-gray-600 z-20 scale-95 opacity-0 animate-scale-fade"
             >
-                <button
-                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm transition"
-                    (click)="onEdit(acc)"
-                >
-                    ✏️ Edit
-                </button>
                 <button
                     class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm transition"
                     (click)="onCopy(acc)"

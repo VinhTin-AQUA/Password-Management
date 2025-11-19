@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { QuestionCancelDialogStore } from '../../stores/question-cancel-dialog.store';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DialogService } from '../../services/dialog-service';
 
 @Component({
     selector: 'app-question-cancel-dialog',
@@ -12,8 +13,8 @@ export class QuestionCancelDialog {
     questionCancelDialogStore = inject(QuestionCancelDialogStore);
 
     @Output() confirm = new EventEmitter<void>();
-    @Output() cancel = new EventEmitter<void>();
-    @Output() closed = new EventEmitter<void>();
+
+    constructor(private dialogService: DialogService) {}
 
     onConfirm(): void {
         this.confirm.emit();
@@ -21,11 +22,10 @@ export class QuestionCancelDialog {
     }
 
     onCancel(): void {
-        this.cancel.emit();
-        this.close();
+        this.dialogService.showQuestionCancelDialog(false, '', '', true);
     }
 
     close(): void {
-        this.closed.emit();
+        this.dialogService.showQuestionCancelDialog(false, '', '', true);
     }
 }

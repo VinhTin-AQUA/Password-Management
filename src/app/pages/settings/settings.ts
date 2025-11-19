@@ -11,17 +11,17 @@ import { SelectBox, SelectOption } from '../../shared/components/select-box/sele
 export class Settings {
     // Language list
     languages: SelectOption[] = [
-        { label: 'English', value: 'en' },
-        { label: 'Vietnamese', value: 'vi' },
-        { label: 'Japanese', value: 'jp' },
+        { label: 'English', value: 'en', icon: '🇯🇵' },
+        { label: 'Vietnamese', value: 'vi', icon: '🇻🇳' },
+        { label: 'Japanese', value: 'jp', icon: '🇺🇲' },
     ];
 
     // Theme list
     themes: SelectOption[] = [
-        { label: 'Light', value: 'light' },
-        { label: 'Dark', value: 'dark' },
-        { label: 'Blue', value: 'blue' },
-        { label: 'Purple', value: 'purple' },
+        { label: 'Light', value: 'light', icon: '⬜' },
+        { label: 'Dark', value: 'dark', icon: '⬛' },
+        { label: 'Blue', value: 'blue', icon: '🟦' },
+        { label: 'Purple', value: 'purple', icon: '🟪' },
     ];
 
     // Selected

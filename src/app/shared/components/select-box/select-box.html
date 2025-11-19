@@ -11,9 +11,17 @@
         [attr.disabled]="disabled ? true : null"
     >
         <div class="flex items-center justify-between">
-            <span class="text-gray-700 dark:text-gray-200">
-                {{ selectedOption ? selectedOption.label : placeholder }}
-            </span>
+            <div>
+                @if(selectedOption?.icon) {
+                <span class="text-gray-700 dark:text-gray-200">
+                    {{ selectedOption?.icon }}
+                </span>
+                }
+
+                <span class="text-gray-700 dark:text-gray-200">
+                    {{ selectedOption ? selectedOption.label : placeholder }}
+                </span>
+            </div>
 
             <!-- Chevron Icon -->
             <svg
@@ -51,7 +59,10 @@
                 }"
             >
                 <div class="flex items-center justify-between text-gray-700 dark:text-gray-200">
-                    <span class="truncate">{{ option.label }}</span>
+                    <div>
+                        <span class="truncate">{{ option.icon }} </span>
+                        <span class="truncate">{{ option.label }}</span>
+                    </div>
 
                     <!-- Checkmark for selected option -->
                     @if (option.value === selectedValue) {<svg

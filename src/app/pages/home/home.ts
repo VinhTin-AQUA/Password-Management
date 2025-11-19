@@ -18,6 +18,8 @@ export class Home {
         { name: 'Github', username: 'dev123' },
     ];
     speedDialOpen = false;
+    mainRoute = MAIN_ROUTE;
+    mainRoutes = MainRoutes;
 
     constructor(private router: Router, private dialogService: DialogService) {}
 
