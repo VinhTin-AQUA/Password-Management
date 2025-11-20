@@ -30,7 +30,7 @@ export const routes: Routes = [
                 path: MainRoutes.EditAccount,
                 component: EditAccount,
             },
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', redirectTo: MainRoutes.Home, pathMatch: 'full' },
         ],
     },
     {
@@ -45,8 +45,8 @@ export const routes: Routes = [
                 path: AuthRoutes.Config,
                 component: Config,
             },
-            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: '', redirectTo: AuthRoutes.Config, pathMatch: 'full' },
         ],
     },
-    { path: '**', redirectTo: MAIN_ROUTE },
+    { path: '**', redirectTo: AUTH_ROUTE },
 ];

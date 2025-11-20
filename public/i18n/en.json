@@ -18,5 +18,11 @@
     "editNewAccount": "Edit new account",
     "updateAccount": "Update account",
     "ok": "Ok",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "login": "Login",
+    "config": "Config",
+    "spreadSheetUrl": "Spread Sheet Url",
+    "spreadSheetId": "Spread Sheet Id",
+    "credentialPath": "Credential Path",
+    "saveConfig": "Save Config"
 }
