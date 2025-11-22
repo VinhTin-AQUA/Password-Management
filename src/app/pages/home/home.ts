@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
-import { MAIN_ROUTE, MainRoutes } from '../../core/routes.enum';
+import { MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { DialogService } from '../../shared/services/dialog-service';
 
 @Component({

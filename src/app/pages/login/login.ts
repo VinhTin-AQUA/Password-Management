@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MAIN_ROUTE, MainRoutes } from '../../core/routes.enum';
+import { MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 
 @Component({
     selector: 'app-login',

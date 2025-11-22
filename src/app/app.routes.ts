@@ -6,7 +6,7 @@ import { Settings } from './pages/settings/settings';
 import { AuthLayout } from './shared/components/auth-layout/auth-layout';
 import { Login } from './pages/login/login';
 import { Config } from './pages/config/config';
-import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from './core/routes.enum';
+import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from './core/enums/routes.enum';
 import { EditAccount } from './pages/edit-account/edit-account';
 
 export const routes: Routes = [
