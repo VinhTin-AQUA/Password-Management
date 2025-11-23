@@ -4,5 +4,5 @@ export interface AccountModel {
     user_name: string;
     password: string;
     note: string;
-    saltBase64: string;
+    salt_base64: string;
 }

@@ -182,9 +182,6 @@ impl GoogleSheetsService {
             }
         }
 
-        println!("{:#?}", id);
-        println!("{:#?}", rows_to_delete);
-
         // Quan trọng: xóa từ cuối lên đầu
         rows_to_delete.reverse();
 
@@ -208,7 +205,7 @@ impl GoogleSheetsService {
         let body = json!({ "requests": requests });
         let batch_url: String = format!("{}/{}:batchUpdate", Self::BASE_API, spreadsheet_id);
 
-        let resp = self
+        _ = self
             .client
             .post(&batch_url)
             .bearer_auth(self.access_token.as_str())
@@ -217,6 +214,92 @@ impl GoogleSheetsService {
             .await?;
 
         Ok(Some(true))
+    }
+
+    pub async fn update_account(
+        &mut self,
+        sheet_name: String,
+        spreadsheet_id: String,
+        passcode: String,
+        password: Password,
+    ) -> anyhow::Result<Option<ResponseCommand>> {
+        let range = format!("{}!A:F", urlencoding::encode(sheet_name.as_str()));
+        let read_url = format!("{}/{}/values/{}", Self::BASE_API, spreadsheet_id, range);
+
+        let res = self
+            .client
+            .get(read_url)
+            .bearer_auth(self.access_token.as_str())
+            .send()
+            .await?
+            .json::<Value>()
+            .await?;
+
+        let Some(values) = res.get("values").and_then(|v| v.as_array()) else {
+            return Err(anyhow::anyhow!("Missing or invalid `values` field"));
+        };
+
+        // --- 2. Tìm các hàng cần cập nhật ---
+        let mut rows_to_update = vec![];
+        for (i, row) in values.iter().enumerate() {
+            // row.get(0) là so sánh cột A
+            if row.get(0).map_or(false, |v| v == password.id.as_str()) {
+                rows_to_update.push(i);
+            }
+        }
+
+        if rows_to_update.len() == 0 {
+            return Err(anyhow::anyhow!("không tìm thấy id {:?}", password.id));
+        }
+
+        rows_to_update.reverse();
+        let range = format!(
+            "{}!A{}:F{}",
+            urlencoding::encode(sheet_name.as_str()),
+            rows_to_update[0] + 1,
+            rows_to_update[0] + 1
+        );
+
+        let update_url = format!(
+            "{}/{}/values/{}?valueInputOption=USER_ENTERED",
+            Self::BASE_API,
+            spreadsheet_id,
+            range
+        );
+
+        let mut salt = [0u8; 16];
+        rand::thread_rng().fill_bytes(&mut salt);
+        let salt_b64 = general_purpose::STANDARD.encode(&salt);
+
+        let update_body = json!({
+            "range": range,
+            "majorDimension": "ROWS",
+            "values": [
+                [
+                    password.id.as_str(), 
+                    password.account_name.as_str(),
+                    encrypt_data(passcode.as_str(), password.user_name.as_str(), salt),
+                    encrypt_data(passcode.as_str(), password.password.as_str(),salt),
+                    encrypt_data(passcode.as_str(), password.note.as_str(),salt),
+                    salt_b64
+                ]
+            ]
+        });
+
+        _ = self
+            .client
+            .put(&update_url)
+            .bearer_auth(self.access_token.as_str())
+            .json(&update_body)
+            .send()
+            .await?;
+
+        let response_command: ResponseCommand = ResponseCommand {
+            message: "Ghi dữ liệu thành công!".to_string(),
+            title: "Success".to_string(),
+            is_success: true,
+        };
+        Ok(Some(response_command))
     }
 
     /* private methods */

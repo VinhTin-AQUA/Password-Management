@@ -2,12 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
-import { AccountModel } from './models/account,model';
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
 import { StoreHelper } from '../../shared/helpers/store-helper';
 import { SettingKeys } from '../../core/enums/setting-keys';
 import { QuestionCancelDialog } from '../../shared/components/question-cancel-dialog/question-cancel-dialog';
+import { AccountModel } from '../../shared/models/account-model';
+import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 
 @Component({
     selector: 'app-home',
@@ -19,13 +20,12 @@ export class Home {
     openMenu: number | null = null;
     accounts = signal<AccountModel[]>([]);
     speedDialOpen = false;
-    mainRoute = MAIN_ROUTE;
-    mainRoutes = MainRoutes;
-    spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     savedPassCode: string | undefined = undefined;
     isShowQuestionDialog: boolean = false;
-
     idToDelete: string | null = null;
+
+    spreadsheetConfigStore = inject(SpreadsheetConfigStore);
+    updateAccountStore = inject(UpdateAccountStore);
 
     constructor(private router: Router, private tauriCommandSerivce: TauriCommandSerivce) {}
 
@@ -40,18 +40,17 @@ export class Home {
         this.openMenu = this.openMenu === i ? null : i;
     }
 
-    onEdit(acc: any) {
-        console.log('Edit', acc);
-        this.openMenu = null;
-        this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.EditAccount}`);
-    }
-
     onCopy(acc: AccountModel, event: Event) {
         event.preventDefault();
         event.stopPropagation();
         console.log('Copy', acc);
         navigator.clipboard.writeText(acc.password);
         this.openMenu = null;
+    }
+
+    onUpdate(acc: AccountModel) {
+        this.updateAccountStore.update(acc);
+        this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.EditAccount}`)
     }
 
     async onDelete(acc: AccountModel, event: Event) {

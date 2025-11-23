@@ -11,6 +11,7 @@ export class TauriCommandSerivce {
     static readonly ADD_ACCOUNT = 'add_account';
     static readonly GET_ACCOUNTS = 'get_accounts';
     static readonly DELETE_ACCOUNT = 'delete_account';
+    static readonly UPDATE_ACCOUNT = 'update_account';
 
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
 

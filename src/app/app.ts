@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { LanguageService } from './shared/services/language-service';
 import { DialogService } from './shared/services/dialog-service';
 import { Loader } from './shared/components/loader/loader';
-import { QuestionCancelDialog } from './shared/components/question-cancel-dialog/question-cancel-dialog';
 import { SpreadsheetConfigStore } from './shared/stores/spread-sheet-config-store';
 import { EConfigFileNames } from './core/enums/file-names';
 import { AppFolderHelper } from './shared/helpers/app-folder';
@@ -16,7 +15,7 @@ import { StoreHelper } from './shared/helpers/store-helper';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, Loader, QuestionCancelDialog],
+    imports: [RouterOutlet, Loader],
     templateUrl: './app.html',
     styleUrl: './app.scss',
 })

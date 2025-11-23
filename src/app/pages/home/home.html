@@ -1,8 +1,14 @@
 <div class="p-4 space-y-4 font-sans text-gray-800 dark:text-gray-200">
+    @if (accounts().length ===0) {
+    <div class="text-center text-2xl dark:text-gray-200">
+        <span>No account</span>
+    </div>
+    }
+
     <!-- Accounts List -->
     @for (acc of accounts(); track $index) {
     <div
-        [routerLink]="`/${mainRoute}/${mainRoutes.EditAccount}`"
+        (click)="onUpdate(acc)"
         (clickOutside)="closeContextMenu()"
         class="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-md active:scale-[0.97] transition transform duration-200"
     >

@@ -34,7 +34,8 @@ pub fn run() {
             init_google_sheet_command,
             add_account,
             get_accounts,
-            delete_account
+            delete_account,
+            update_account,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
