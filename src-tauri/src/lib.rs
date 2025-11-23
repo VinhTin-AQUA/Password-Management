@@ -16,6 +16,7 @@ pub fn run() {
     });
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_fs::init())
         .setup(|app| {
             if cfg!(debug_assertions) {
@@ -28,7 +29,10 @@ pub fn run() {
             app.manage(state);
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![init_google_sheet_command,])
+        .invoke_handler(tauri::generate_handler![
+            init_google_sheet_command,
+            add_account
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

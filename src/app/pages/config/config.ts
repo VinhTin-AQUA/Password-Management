@@ -108,23 +108,21 @@ export class Config {
     private async checkConfig(): Promise<boolean> {
         const credentialFolder = await AppFolderHelper.getFolderPath(EAppFolderNames.CredentialDir);
         const configFolder = await AppFolderHelper.getFolderPath(EAppFolderNames.ConfigDir);
-
         const credentialPath = await join(
             credentialFolder,
             EConfigFileNames.GOOGLE_CREDENTIAL_FILE_NAME
         );
-        const configPath = await join(configFolder, EConfigFileNames.CONFIG_PATH);
 
+        const configPath = await join(configFolder, EConfigFileNames.CONFIG_PATH);
         const credentialPathExists = await exists(credentialPath);
         const configPathExists = await exists(configPath);
-
         const spreadsheetConfig = await FileHelper.getObjectFromFile<SpreadsheetConfigModel>(
             configPath
         );
+
         if (spreadsheetConfig) {
             this.spreadsheetConfigStore.update(spreadsheetConfig);
         }
-
         return credentialPathExists && configPathExists;
     }
 
@@ -137,9 +135,9 @@ export class Config {
 
         const r = await this.tauriCommandSerivce.invokeCommand<any>(
             TauriCommandSerivce.INIT_GOOGLE_SHEET_COMMAND,
+            { sheetName: '', spreadsheetId: '' },
             { jsonPath: credentialPath }
         );
-
         return r !== null;
     }
-} //
+} 

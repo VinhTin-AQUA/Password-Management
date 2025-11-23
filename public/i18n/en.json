@@ -9,6 +9,7 @@
         "configDetails": "ConfigDetails",
         "settings": "Settings"
     },
+    "accountName":"Account Name",
     "userName": "User name",
     "password": "Password",
     "confirmPassword": "Confirm password",
@@ -24,5 +25,11 @@
     "spreadSheetUrl": "Spread Sheet Url",
     "spreadSheetId": "Spread Sheet Id",
     "credentialPath": "Credential Path",
-    "saveConfig": "Save Config"
+    "saveConfig": "Save Config",
+    "addAccountForm": {
+        "accountNameIsEmpty": "Account name is empty",
+        "userNameIsEmpty": "User name is empty",
+        "passwordIsEmpty": "Password is empty",
+        "passwordIsNotMatch": "Password is not match"
+    }
 }

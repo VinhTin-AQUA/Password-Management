@@ -1,8 +1,9 @@
+use crate::models::{Password, ResponseCommand};
 use anyhow::anyhow;
 use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::{json, to_value, Value};
 use std::fs;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -50,17 +51,9 @@ impl GoogleSheetsService {
         json_path: &str,
     ) -> anyhow::Result<Option<TokenResponse>> {
         let jwt = Self::get_jwt(json_path)?;
-
-        println!("{:?}", jwt);
-
         let token = Self::get_token_response(&jwt).await?;
-
-        println!("token: {:?}", token);
-
         let token = if let Some(token_value) = token {
             self.access_token = token_value.access_token.clone();
-
-            println!("access_token: {:?}", self.access_token);
             Some(token_value)
         } else {
             return Err(anyhow!("Vui lòng đợi và thử lại trong vài giây"));
@@ -69,12 +62,60 @@ impl GoogleSheetsService {
         Ok(token)
     }
 
+    pub async fn add_account(
+        &mut self,
+        sheet_name: String,
+        spreadsheet_id: String,
+        password: Password,
+    ) -> anyhow::Result<Option<ResponseCommand>> {
+        println!("password: {:#?}", password);
+
+        let write_range = format!("{}!A:E", urlencoding::encode(sheet_name.as_str()));
+        let write_url = format!(
+            "{}/{}/values/{}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS",
+            Self::BASE_API,
+            spreadsheet_id,
+            write_range
+        );
+
+        let row: Vec<Vec<Value>> = vec![vec![
+            Value::from(password.id),
+            Value::from(password.account_name),
+            Value::from(password.user_name),
+            Value::from(password.password),
+            Value::from(password.note),
+        ]];
+
+        println!("row: {:#?}", row);
+
+        let body = json!({
+        "majorDimension": "ROWS",
+            "values": row
+        });
+
+        _ = self
+            .client
+            .post(&write_url)
+            .bearer_auth(self.access_token.as_str())
+            .json(&body)
+            .send()
+            .await?
+            .json::<Value>()
+            .await?;
+
+        let response_command: ResponseCommand = ResponseCommand {
+            message: "Ghi dữ liệu thành công!".to_string(),
+            title: "Success".to_string(),
+            is_success: true,
+        };
+        Ok(Some(response_command))
+    }
+
     /* private methods */
 
     fn get_jwt(json_path: &str) -> anyhow::Result<String> {
         let data = fs::read_to_string(json_path)?; // file json được tải ở bước trước trong google console
         let json: ServiceAccount = serde_json::from_str(&data)?;
-
         let now = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
         let exp = now + 3600; // 1h
 
@@ -93,29 +134,12 @@ impl GoogleSheetsService {
 
     async fn get_token_response(jwt: &str) -> anyhow::Result<Option<TokenResponse>> {
         let client = Client::new();
-
         let params = [
             ("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer"),
             ("assertion", jwt),
         ];
 
-   
-
-        // let res = client
-        //     .post(Self::AUD_URL)
-        //     .form(&params)
-        //     .send()
-        //     .await?
-        //     .error_for_status()?;
-
-        // let token: TokenResponse = res.json().await?;
-        // Ok(Some(token))
-
-        let res = client
-    .post(Self::AUD_URL)
-    .form(&params)
-    .send()
-    .await?;
+        let res = client.post(Self::AUD_URL).form(&params).send().await?;
 
         if !res.status().is_success() {
             let status = res.status();
