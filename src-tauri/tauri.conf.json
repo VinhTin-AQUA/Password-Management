@@ -2,9 +2,9 @@
     "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
     "productName": "password-management",
     "version": "0.1.0",
-    "identifier": "com.password-management.dev",
+    "identifier": "com.newtun.passwordmanagement",
     "build": {
-        "frontendDist": "../dist",
+        "frontendDist": "../dist/password-management/browser",
         "devUrl": "http://localhost:4200",
         "beforeDevCommand": "ng s",
         "beforeBuildCommand": "ng build"

@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">password-management</string>
-    <string name="main_activity_title">password-management</string>
+    <string name="app_name">Password Management</string>
+    <string name="main_activity_title">Password Management</string>
 </resources>

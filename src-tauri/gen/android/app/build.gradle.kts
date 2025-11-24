@@ -14,13 +14,13 @@ val tauriProperties = Properties().apply {
 }
 
 android {
-    compileSdk = 36
-    namespace = "com.tauri.dev"
+    compileSdk = 35
+    namespace = "com.newtun.passwordmanagement"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.tauri.dev"
+        applicationId = "com.newtun.passwordmanagement"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
         versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
     }
@@ -50,6 +50,22 @@ android {
     }
     buildFeatures {
         buildConfig = true
+    }
+    
+    // Cấu hình chữ ký cho bản release
+    signingConfigs {
+        create("release") {
+            storeFile = file("newtun-release-key.keystore")
+            storePassword = System.getenv("STORE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false  // Bật true nếu bạn muốn shrink code (ProGuard)
+            signingConfig = signingConfigs.getByName("release")
+        }
     }
 }
 
