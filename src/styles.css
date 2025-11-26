@@ -1,40 +1,82 @@
 @import 'tailwindcss';
 
-/* @custom-variant dark (&:where(.dark, .dark *)); */
+@layer utilities {
+    /* ============ background ============ */
+    .bg-surface {
+        background-color: var(--color-surface);
+    }
 
-@theme inline {
-    --color-backgroud: var(--backgroud);
-    --color-backgroud-hover: var(--backgroud-hover);
+    .bg-surface-hover,
+    .hover\:bg-surface-hover:hover {
+        background-color: var(--color-surface-hover);
+    }
 
-    --color-foreground: var(--foreground);
-    --color-border: var(--border-color);
+    .bg-surface-active,
+    .active\:bg-surface-active:active {
+        background-color: var(--color-surface-active);
+    }
 
+    /* ============ text ============ */
+    .text-primary {
+        color: var(--color-text);
+    }
+
+    .text-primary-hover,
+    .hover\:text-primary-hover:hover {
+        color: var(--color-text-hover);
+    }
+
+    .text-primary-active,
+    .active\:text-primary-active:active {
+        color: var(--color-text-active);
+    }
+
+    /* ============ border ============ */
+    .border-primary {
+        color: var(--color-text);
+    }
+
+    .hover\:border-primary-hover:hover {
+        color: var(--color-border-hover);
+    }
+
+    .active\:border-primary-active:active {
+        color: var(--color-border-active);
+    }
 }
 
 @layer base {
-    /* :root {
-        --backgroud: oklch(21% 0.034 264.665);
-    } */
-
     [data-theme='light'] {
-        --backgroud: var(--color-white);
-        --backgroud-active: var(--color-blue-700);
-        --backgroud-hover: var(--color-gray-100);
+        /* ============ background ============ */
+        --color-surface: var(--color-white);
+        --color-surface-hover: var(--color-gray-100);
+        --color-surface-active: var(--color-blue-700);
 
-        --foreground: var(--color-gray-800);
-        --foreground-active: var(--color-gray-900);
+        /* ============ text ============ */
+        --color-text: var(--color-gray-800);
+        --color-text-hover: var(--color-red-900);
+        --color-text-active: var(--color-gray-900);
 
-        --border-color: var(--color-gray-200);
+        /* ============ border ============ */
+        --color-border: var(--color-gray-200);
+        --color-border-hover: var(--color-blue-700);
+        --color-border-active: var(--color-blue-700);
     }
 
     [data-theme='dark'] {
-        --backgroud: var(--color-gray-900);
-        --backgroud-active: var(--color-blue-700);
-        --backgroud-hover: var(--color-gray-800);
+        /* ============ background ============ */
+        --color-surface: var(--color-gray-900);
+        --color-surface-hover: var(--color-gray-800);
+        --color-surface-active: var(--color-blue-700);
 
-        --foreground: var(--color-gray-200);
-        --foreground-active: var(--color-white);
+        /* ============ text ============ */
+        --color-text: var(--color-gray-200);
+        --color-text-hover: var(--color-green-900);
+        --color-text-active: var(--color-white);
 
-        --border-color: var(--color-gray-700);
+        /* ============ border ============ */
+        --color-border: var(--color-gray-700);
+        --color-border-hover: var(--color-blue-200);
+        --color-border-active: var(--color-blue-200);
     }
 }
