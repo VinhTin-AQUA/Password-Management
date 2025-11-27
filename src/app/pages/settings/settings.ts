@@ -20,8 +20,10 @@ export class Settings {
     themes: SelectOption[] = [
         { label: 'Light', value: 'light', icon: '⬜' },
         { label: 'Dark', value: 'dark', icon: '⬛' },
-        { label: 'Blue', value: 'blue', icon: '🟦' },
-        { label: 'Purple', value: 'purple', icon: '🟪' },
+        { label: 'Dracula', value: 'dracula', icon: '🟪' },
+        { label: 'Monokai', value: 'monokai', icon: '🟩' },
+        { label: 'Github Light', value: 'github-light', icon: '🟩' },
+        { label: 'Github Dark', value: 'github-dark', icon: '🟩' },
     ];
 
     // Selected
