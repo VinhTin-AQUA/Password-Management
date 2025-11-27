@@ -1,35 +1,37 @@
-<div class="p-4 font-sans text-gray-800 dark:text-gray-200 space-y-4">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+<div class="text-primary p-4 font-sans space-y-4">
+    <h2 class="text-primary text-xl font-semibold mb-4">
         {{ 'updateAccount' | translate }}
     </h2>
 
     <form [formGroup]="form">
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm space-y-4">
-             <!-- accountNameIsEmpty -->
+        <div class="bg-surface p-4 rounded-2xl shadow-sm space-y-4">
+            <!-- accountNameIsEmpty -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'accountName' | translate }}
                 </label>
                 <input
                     type="text"
                     formControlName="accountName"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                    class="border-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
                     [placeholder]="'accountName' | translate"
                 />
                 @if (submitted && form.get('accountName')?.invalid) {
-                <span class="text-red-500">{{ 'addAccountForm.accountNameIsEmpty' | translate }}</span>
+                <span class="text-red-500">{{
+                    'addAccountForm.accountNameIsEmpty' | translate
+                }}</span>
                 }
             </div>
 
             <!-- Username -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'userName' | translate }}
                 </label>
                 <input
                     type="text"
                     formControlName="username"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                    class="border-primary border-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
                     [placeholder]="'userName' | translate"
                 />
                 @if (submitted && form.get('username')?.invalid) {
@@ -39,19 +41,19 @@
 
             <!-- Password -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'password' | translate }}
                 </label>
                 <div class="relative">
                     <input
                         [type]="showPassword ? 'text' : 'password'"
                         formControlName="password"
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                        class="border-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
                         placeholder="*****************"
                     />
                     <button
                         type="button"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
+                        class="text-primary hover:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
                         (click)="showPassword = !showPassword"
                     >
                         @if(!showPassword){
@@ -95,19 +97,19 @@
 
             <!-- Confirm Password -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'confirmPassword' | translate }}
                 </label>
                 <div class="relative">
                     <input
                         [type]="showPassword ? 'text' : 'password'"
                         formControlName="confirmPassword"
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                        class="border-primary border-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
                         placeholder="*****************"
                     />
                     <button
                         type="button"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
+                        class="text-primary over:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
                         (click)="showPassword = !showPassword"
                     >
                         @if(!showPassword){
@@ -154,20 +156,20 @@
 
             <!-- Note -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'note' | translate }}
                 </label>
                 <textarea
                     rows="5"
                     formControlName="note"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none resize-none transition"
+                    class="border-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none resize-none transition"
                     [placeholder]="'note' | translate"
                 ></textarea>
             </div>
 
             <!-- Submit button -->
             <button
-                class="w-full py-3 bg-black dark:bg-blue-600 text-white rounded-xl shadow-md active:scale-[0.97] transition transform font-medium hover:bg-gray-900 dark:hover:bg-blue-700"
+                class="bg-surface hover:bg-surface-hover text-primary w-full py-3 rounded-xl shadow-md active:scale-[0.97] transition transform font-medium"
                 (click)="save()"
             >
                 {{ 'saveAccount' | translate }}

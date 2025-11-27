@@ -1,4 +1,4 @@
-<div class="p-4 font-sans text-gray-800 dark:text-gray-200 space-y-4">
+<div class="text-primary p-4 font-sans space-y-4">
     <!-- Logo -->
     <div class="flex flex-col items-center space-y-2">
         <img src="/encrypted.png" class="w-16 h-16 rounded-xl shadow-sm" alt="App Logo" />
@@ -6,22 +6,22 @@
     </div>
 
     <form [formGroup]="form">
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm space-y-4">
+        <div class="bg-surface p-4 rounded-2xl shadow-sm space-y-4">
             <!-- passcode -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'addPasscodeForm.passcode' | translate }}
                 </label>
                 <div class="relative">
                     <input
                         [type]="showPasscode ? 'text' : 'password'"
                         formControlName="passcode"
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                        class="border-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
                         placeholder="*****************"
                     />
                     <button
                         type="button"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
+                        class="text-primary hover:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
                         (click)="showPasscode = !showPasscode"
                     >
                         @if(!showPasscode){
@@ -65,19 +65,19 @@
 
             <!-- Confirm Password -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label class="text-primary block text-sm font-medium mb-1">
                     {{ 'addPasscodeForm.confirmPasscode' | translate }}
                 </label>
                 <div class="relative">
                     <input
                         [type]="showPasscode ? 'text' : 'password'"
                         formControlName="confirmPasscode"
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                        class="text-primary border-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
                         placeholder="*****************"
                     />
                     <button
                         type="button"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
+                        class="text-primary hover:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
                         (click)="showPasscode = !showPasscode"
                     >
                         @if(!showPasscode){
@@ -124,7 +124,7 @@
 
             <!-- Submit button -->
             <button
-                class="w-full py-3 bg-black dark:bg-blue-600 text-white rounded-xl shadow-md active:scale-[0.97] transition transform font-medium hover:bg-gray-900 dark:hover:bg-blue-700"
+                class="bg-surface hover:bg-surface-hover text-primary w-full py-3 rounded-xl shadow-md active:scale-[0.97] transition transform font-medium"
                 (click)="save()"
             >
                 {{ 'addPasscodeForm.addPasscode' | translate }}

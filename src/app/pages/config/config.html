@@ -1,24 +1,22 @@
 <div
-    class="min-h-screen flex flex-col justify-center items-center px-6 font-sans text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-900"
+    class="bg-surface text-primary min-h-screen flex flex-col justify-center items-center px-6 font-sans"
 >
     <!-- Card -->
     <form [formGroup]="configForm">
         <div
-            class="w-full max-w-md p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-lg space-y-6 animate-scale-fade"
+            class="bg-surface w-full max-w-md p-6 rounded-2xl shadow-lg space-y-6 animate-scale-fade"
         >
             <!-- Title -->
             <h1 class="text-2xl font-semibold text-center">{{ 'config' | translate }}</h1>
 
             <!-- Input 1 -->
             <div class="space-y-2">
-                <label class="text-sm text-gray-600 dark:text-gray-300">{{
-                    'spreadSheetUrl' | translate
-                }}</label>
+                <label class="text-primary text-sm">{{ 'spreadSheetUrl' | translate }}</label>
                 <input
                     formControlName="spreadSheetUrl"
                     type="text"
                     (input)="onSpreadSheetUrlChange($event)"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-surface w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder="https://example.excel.com"
                 />
                 @if(submitted && configForm.get('spreadSheetUrl')?.invalid) {
@@ -30,14 +28,12 @@
 
             <!-- Input 2 -->
             <div class="space-y-2">
-                <label class="text-sm text-gray-600 dark:text-gray-300">{{
-                    'spreadSheetId' | translate
-                }}</label>
+                <label class="text-primary text-sm">{{ 'spreadSheetId' | translate }}</label>
                 <input
                     formControlName="spreadSheetId"
                     readonly
                     type="text"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-surface w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder=""
                 />
                 @if (submitted && configForm.get('spreadSheetId')?.invalid) {
@@ -47,14 +43,12 @@
 
             <!-- Input 3 -->
             <div class="space-y-2">
-                <label class="text-sm text-gray-600 dark:text-gray-300">{{
-                    'credentialPath' | translate
-                }}</label>
+                <label class="text-primary text-sm">{{ 'credentialPath' | translate }}</label>
                 <input
                     type="file"
                     (change)="onSelectFile($event)"
                     accept=".json"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-surface w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder=""
                 />
                 @if(submitted && !selectedFile) {
@@ -65,7 +59,7 @@
             <!-- Save Button -->
             <button
                 (click)="saveConfig()"
-                class="w-full py-3 rounded-xl bg-black dark:bg-blue-600 text-white font-medium shadow-sm hover:shadow-md active:scale-95 transition"
+                class="bg-surface text-primary w-full py-3 rounded-xl font-medium shadow-sm hover:shadow-md active:scale-95 transition"
             >
                 {{ 'saveConfig' | translate }}
             </button>

@@ -1,7 +1,7 @@
 <div class="relative w-full" (clickOutside)="closeDropdown()">
     <!-- Select Trigger -->
     <div
-        class="bg-white dark:bg-gray-900 w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        class="bg-surface border-primary w-full px-4 py-3 border rounded-lg shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         [class]="{
             'ring-2 ring-blue-500 border-transparent': isOpen,
             'bg-gray-100 cursor-not-allowed': disabled,
@@ -13,19 +13,19 @@
         <div class="flex items-center justify-between">
             <div>
                 @if(selectedOption?.icon) {
-                <span class="text-gray-700 dark:text-gray-200">
+                <span class="text-primary">
                     {{ selectedOption?.icon }}
                 </span>
                 }
 
-                <span class="text-gray-700 dark:text-gray-200">
+                <span class="text-primary">
                     {{ selectedOption ? selectedOption.label : placeholder }}
                 </span>
             </div>
 
             <!-- Chevron Icon -->
             <svg
-                class="w-5 h-5 text-gray-400 transition-transform duration-200 ease-in-out"
+                class="text-primary w-5 h-5 transition-transform duration-200 ease-in-out"
                 [class.transform.rotate-180]="isOpen"
                 fill="none"
                 stroke="currentColor"
@@ -44,7 +44,7 @@
     <!-- Dropdown Menu -->
     @if (isOpen) {
     <div
-        class="absolute z-50 w-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 rounded-lg shadow-xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200 origin-top"
+        class="bg-surface border-primary absolute z-50 w-full mt-1 border rounded-lg shadow-xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200 origin-top"
     >
         <div class="py-1 max-h-60 overflow-auto custom-scrollbar">
             @for (option of options; track $index) {
@@ -58,7 +58,7 @@
                     'text-gray-400 cursor-not-allowed bg-gray-50': option.disabled
                 }"
             >
-                <div class="flex items-center justify-between text-gray-700 dark:text-gray-200">
+                <div class="text-primary flex items-center justify-between">
                     <div>
                         <span class="truncate">{{ option.icon }} </span>
                         <span class="truncate">{{ option.label }}</span>
@@ -66,7 +66,7 @@
 
                     <!-- Checkmark for selected option -->
                     @if (option.value === selectedValue) {<svg
-                        class="w-4 h-4 text-gray-700 dark:text-gray-200"
+                        class="text-primary w-4 h-4"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                     >
@@ -74,15 +74,14 @@
                             fill-rule="evenodd"
                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                             clip-rule="evenodd"
-                        /></svg
-                    >}
+                        /></svg>}
                 </div>
             </div>
             }
 
             <!-- Empty state -->
             @if (options.length === 0) {
-            <div class="px-4 py-3 text-center text-gray-500">No options available</div>
+            <div class="text-primary px-4 py-3 text-center">No options available</div>
             }
         </div>
     </div>
