@@ -12,6 +12,7 @@ import { AccountModel } from '../../shared/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { DialogService } from '../../shared/services/dialog-service';
 import { Icon } from '../../shared/components/icon/icon';
+import { PasscodeStore } from '../../shared/stores/passcode.store';
 
 @Component({
     selector: 'app-edit-account',
@@ -23,7 +24,7 @@ export class EditAccount {
     showPassword = false;
     submitted: boolean = false;
     form!: FormGroup;
-    savedPassCode: string | undefined = undefined;
+    passCode = inject(PasscodeStore);
 
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     updateAccountStore = inject(UpdateAccountStore);
@@ -70,7 +71,7 @@ export class EditAccount {
         const response = await this.tauriCommandSerivce.invokeCommand<ResponseCommand>(
             TauriCommandSerivce.UPDATE_ACCOUNT,
             {
-                passcode: this.savedPassCode,
+                passcode: this.passCode.passCode(),
                 password: updateAccount,
             }
         );
@@ -83,8 +84,7 @@ export class EditAccount {
     }
 
     private async init() {
-        this.savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
-        if (!this.savedPassCode) {
+        if (!this.passCode.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
 

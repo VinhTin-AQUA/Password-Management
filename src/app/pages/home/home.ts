@@ -4,12 +4,12 @@ import { ClickOutsideDirective } from '../../shared/directives/click-outside.dir
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
-import { StoreHelper } from '../../shared/helpers/store-helper';
-import { SettingKeys } from '../../core/enums/setting-keys';
 import { QuestionCancelDialog } from '../../shared/components/question-cancel-dialog/question-cancel-dialog';
 import { AccountModel } from '../../shared/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { Icon } from '../../shared/components/icon/icon';
+import { PasscodeStore } from '../../shared/stores/passcode.store';
+import { AccountStore } from '../../shared/stores/accounts.store';
 
 @Component({
     selector: 'app-home',
@@ -19,20 +19,20 @@ import { Icon } from '../../shared/components/icon/icon';
 })
 export class Home {
     openMenu: number | null = null;
-    accounts = signal<AccountModel[]>([]);
     speedDialOpen = false;
-    savedPassCode: string | undefined = undefined;
     isShowQuestionDialog: boolean = false;
     idToDelete: string | null = null;
 
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     updateAccountStore = inject(UpdateAccountStore);
+    passCode = inject(PasscodeStore);
+    accountStore = inject(AccountStore);
 
     constructor(private router: Router, private tauriCommandSerivce: TauriCommandSerivce) {}
 
     async ngOnInit() {
-        // await this.getSavedPasscode();
-        // await this.getAccounts();
+        await this.getSavedPasscode();
+        await this.getAccounts();
     }
 
     toggleMenu(i: number, event: Event) {
@@ -90,20 +90,24 @@ export class Home {
     }
 
     private async getAccounts() {
+        if (this.accountStore.accounts().length > 0) {
+            return;
+        }
+
         const r = await this.tauriCommandSerivce.invokeCommand<AccountModel[]>(
             TauriCommandSerivce.GET_ACCOUNTS,
             {
-                passcode: this.savedPassCode,
+                passcode: this.passCode.passCode(),
             }
         );
+
         if (r) {
-            this.accounts.set(r);
+            this.accountStore.setAccounts(r);
         }
     }
 
     private async getSavedPasscode() {
-        this.savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
-        if (!this.savedPassCode) {
+        if (!this.passCode.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
     }

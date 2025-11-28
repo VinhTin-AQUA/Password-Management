@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
-import { StoreHelper } from '../../shared/helpers/store-helper';
-import { SettingKeys } from '../../core/enums/setting-keys';
-import { Icon } from "../../shared/components/icon/icon";
+import { Icon } from '../../shared/components/icon/icon';
+import { PasscodeStore } from '../../shared/stores/passcode.store';
 
 @Component({
     selector: 'app-login',
@@ -15,18 +14,18 @@ import { Icon } from "../../shared/components/icon/icon";
 })
 export class Login {
     password = '';
-    savedPassCode: string | undefined = undefined;
     errorMessage: string = '';
     showPassword: boolean = false;
+    passcodeStore = inject(PasscodeStore);
 
     constructor(private router: Router) {}
 
     ngOnInit() {
-        // this.Init();
+        this.Init();
     }
 
     onLogin() {
-        if (this.savedPassCode !== this.password) {
+        if (this.passcodeStore.passCode() !== this.password) {
             this.errorMessage = 'addPasscodeForm.passcodeIsNotValid';
             return;
         }
@@ -39,8 +38,7 @@ export class Login {
     }
 
     private async Init() {
-        this.savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
-        if (!this.savedPassCode) {
+        if (!this.passcodeStore.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
     }

@@ -4,13 +4,12 @@ import { TauriCommandSerivce } from '../../shared/services/tauri-command-service
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ResponseCommand } from '../../shared/models/response-command';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
-import { StoreHelper } from '../../shared/helpers/store-helper';
-import { SettingKeys } from '../../core/enums/setting-keys';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { AccountModel } from '../../shared/models/account-model';
 import { DialogService } from '../../shared/services/dialog-service';
 import { Icon } from '../../shared/components/icon/icon';
+import { PasscodeStore } from '../../shared/stores/passcode.store';
 
 @Component({
     selector: 'app-add-account',
@@ -23,7 +22,7 @@ export class AddAccount {
     submitted: boolean = false;
     form!: FormGroup;
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
-    savedPassCode: string | undefined = undefined;
+    passCode = inject(PasscodeStore);
 
     constructor(
         private tauriCommandSerivce: TauriCommandSerivce,
@@ -66,7 +65,7 @@ export class AddAccount {
         const response = await this.tauriCommandSerivce.invokeCommand<ResponseCommand>(
             TauriCommandSerivce.ADD_ACCOUNT,
             {
-                passcode: this.savedPassCode,
+                passcode: this.passCode.passCode(),
                 password: addAccount,
             }
         );
@@ -79,8 +78,7 @@ export class AddAccount {
     }
 
     private async init() {
-        this.savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
-        if (!this.savedPassCode) {
+        if (!this.passCode.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
     }

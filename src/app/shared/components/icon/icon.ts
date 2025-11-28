@@ -12,8 +12,8 @@ export class Icon {
     @Input() name!: IconName; // icon name
     size: string = ''; // e.g. "24px" | "2rem" | "1.5em"
     color: string = ''; // CSS color
-    fill?: string = 'currentColor'; // override fill
-    stroke?: string = 'currentColor'; // stroke color for outline icons
+    @Input() fill?: string = 'currentColor'; // override fill
+    @Input() stroke?: string = 'currentColor'; // stroke color for outline icons
     @Input() class?: string; // extra classes
     spritePath: string = '/icons/sprite.svg';
 }

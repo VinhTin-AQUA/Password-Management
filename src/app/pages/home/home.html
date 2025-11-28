@@ -1,12 +1,12 @@
-<div class="text-primary p-4 space-y-4 font-sans">
-    @if (accounts().length ===0) {
+<div class="p-4 space-y-4 font-sans">
+    @if (accountStore.accounts()) {
     <div class="text-primary text-center text-2xl">
         <span>No account</span>
     </div>
     }
 
     <!-- Accounts List -->
-    @for (acc of accounts(); track $index) {
+    @for (acc of accountStore.accounts(); track $index) {
     <div
         (click)="onUpdate(acc)"
         (clickOutside)="closeContextMenu()"
@@ -21,11 +21,11 @@
         <!-- Right - context trigger -->
         <div class="relative">
             <button
-                class="p-2 rounded-full hover:bg-primary-hover active:bg-primary-active transition"
+                class="text-primary p-2 rounded-full hover:bg-primary-hover active:bg-primary-active transition"
                 (click)="toggleMenu($index, $event)"
             >
                 <!-- three-dots icon -->
-                <app-icon name="dots-vertical"></app-icon>
+                <app-icon name="dots-vertical" class=""></app-icon>
             </button>
 
             <!-- Context Menu -->
@@ -34,7 +34,7 @@
                 class="bg-primary border-primary absolute right-0 mt-2 w-40 shadow-xl rounded-xl border z-20 scale-95 opacity-0 animate-scale-fade"
             >
                 <button
-                    class="hover:bg-primary-hover w-full text-left px-4 py-2 text-sm transition"
+                    class="text-primary hover:bg-primary-hover w-full text-left px-4 py-2 text-sm transition"
                     (click)="onCopy(acc, $event)"
                 >
                     📋 Copy Pass

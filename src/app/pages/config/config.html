@@ -16,7 +16,7 @@
                     formControlName="spreadSheetUrl"
                     type="text"
                     (input)="onSpreadSheetUrlChange($event)"
-                    class="border-primary bg-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder="https://example.excel.com"
                 />
                 @if(submitted && configForm.get('spreadSheetUrl')?.invalid) {
@@ -33,7 +33,7 @@
                     formControlName="spreadSheetId"
                     readonly
                     type="text"
-                    class="border-primary bg-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder=""
                 />
                 @if (submitted && configForm.get('spreadSheetId')?.invalid) {
@@ -48,7 +48,7 @@
                     type="file"
                     (change)="onSelectFile($event)"
                     accept=".json"
-                    class="border-primary bg-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder=""
                 />
                 @if(submitted && !selectedFile) {

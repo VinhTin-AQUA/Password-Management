@@ -33,17 +33,17 @@
 
     /* ============ border ============ */
     .border-primary {
-        color: var(--color-border);
+        border-color: var(--color-border);
     }
 
     .border-primary-hover,
     .hover\:border-primary-hover:hover {
-        color: var(--color-border-hover);
+        border-color: var(--color-border-hover);
     }
 
     .border-primary-active,
     .active\:border-primary-active:active {
-        color: var(--color-border-active);
+        border-color: var(--color-border-active);
     }
 
     /* ============ button ============ */

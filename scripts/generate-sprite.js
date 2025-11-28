@@ -26,8 +26,8 @@ files.forEach((file) => {
         .replace(/<!DOCTYPE.*?>/g, '') // remove doctype
         .replace(/<svg[^>]*>/g, '') // remove svg wrapper
         .replace(/<\/svg>/g, '') // remove svg wrapper
-        .replace(/fill=".*?"/g, '') // remove fill
-        .replace(/stroke=".*?"/g, ''); // remove stroke
+        .replace(/fill=".*?"/g, 'fill="currentColor"') // remove fill
+        .replace(/stroke=".*?"/g, 'stroke="currentColor"'); // remove stroke
 
     const id = path.basename(file, '.svg');
 

@@ -13,6 +13,8 @@ import { join } from '@tauri-apps/api/path';
 import { exists } from '@tauri-apps/plugin-fs';
 import { StoreHelper } from './shared/helpers/store-helper';
 import { Toast } from './shared/components/toast/toast';
+import { PasscodeStore } from './shared/stores/passcode.store';
+import { SettingKeys } from './core/enums/setting-keys';
 
 @Component({
     selector: 'app-root',
@@ -23,12 +25,14 @@ import { Toast } from './shared/components/toast/toast';
 export class App {
     protected readonly title = signal('password-management');
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
+    passcodeStore = inject(PasscodeStore);
 
     constructor(public dialogService: DialogService, private languageService: LanguageService) {}
 
-    ngOnInit() {
-        this.checkConfig();
-        this.init();
+    async ngOnInit() {
+        await this.checkConfig();
+        await this.init();
+        await this.getPasscode();
     }
 
     private async checkConfig(): Promise<boolean> {
@@ -62,5 +66,10 @@ export class App {
         //     return;
         // }
         // this.languageService.use(code);
+    }
+
+    private async getPasscode() {
+        const savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
+        this.passcodeStore.updatePasscode(savedPassCode ?? '');
     }
 }
