@@ -8,13 +8,14 @@ import { EConfigFileNames } from './core/enums/file-names';
 import { AppFolderHelper } from './shared/helpers/app-folder';
 import { EAppFolderNames } from './core/enums/folder-names';
 import { FileHelper } from './shared/helpers/file-helper';
-import { SpreadsheetConfigModel } from './shared/models/spreadsheet-config';
+import { SpreadsheetConfigModel } from './core/models/spreadsheet-config';
 import { join } from '@tauri-apps/api/path';
 import { exists } from '@tauri-apps/plugin-fs';
 import { StoreHelper } from './shared/helpers/store-helper';
 import { Toast } from './shared/components/toast/toast';
-import { PasscodeStore } from './shared/stores/passcode.store';
 import { SettingKeys } from './core/enums/setting-keys';
+import { AppStore } from './shared/stores/app.store';
+import { ThemeConsts } from './core/consts/themes.const';
 
 @Component({
     selector: 'app-root',
@@ -25,7 +26,7 @@ import { SettingKeys } from './core/enums/setting-keys';
 export class App {
     protected readonly title = signal('password-management');
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
-    passcodeStore = inject(PasscodeStore);
+    appStore = inject(AppStore);
 
     constructor(public dialogService: DialogService, private languageService: LanguageService) {}
 
@@ -33,6 +34,7 @@ export class App {
         await this.checkConfig();
         await this.init();
         await this.getPasscode();
+        await this.getTheme();
     }
 
     private async checkConfig(): Promise<boolean> {
@@ -69,7 +71,18 @@ export class App {
     }
 
     private async getPasscode() {
-        const savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
-        this.passcodeStore.updatePasscode(savedPassCode ?? '');
+        const savedPassCode = await StoreHelper.getValue<string>(SettingKeys.PassCode);
+        this.appStore.updatePasscode(savedPassCode ?? '');
+    }
+
+    private async getTheme() {
+        let savedPassCode = await StoreHelper.getValue<string>(SettingKeys.Theme);
+
+        if (!savedPassCode) {
+            await StoreHelper.setValue(SettingKeys.Theme, ThemeConsts.Light.value);
+            savedPassCode = ThemeConsts.Light.value;
+        }
+
+        this.appStore.updateTheme(savedPassCode);
     }
 }

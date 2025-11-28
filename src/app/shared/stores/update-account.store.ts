@@ -1,5 +1,5 @@
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
-import { AccountModel } from '../models/account-model';
+import { AccountModel } from '../../core/models/account-model';
 
 const initialState: AccountModel = {
     id: '',

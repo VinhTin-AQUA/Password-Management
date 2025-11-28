@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { NavItem } from '../../models/nav-item';
+import { NavItem } from '../../../core/models/nav-item';
 import { filter } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Icon } from '../icon/icon';

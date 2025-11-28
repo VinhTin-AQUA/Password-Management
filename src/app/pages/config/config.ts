@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { SpreadSheetHelper } from '../../shared/helpers/spread-sheet-helper';
-import { SpreadsheetConfigModel } from '../../shared/models/spreadsheet-config';
+import { SpreadsheetConfigModel } from '../../core/models/spreadsheet-config';
 import { SpreadsheetConfigService } from '../../shared/services/config-service';
 import { AppFolderHelper } from '../../shared/helpers/app-folder';
 import { EAppFolderNames } from '../../core/enums/folder-names';

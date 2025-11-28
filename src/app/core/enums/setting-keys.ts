@@ -1,4 +1,5 @@
 export enum SettingKeys {
-    language = 'language',
-    passCode = 'passCode',
+    Language = 'language',
+    PassCode = 'passCode',
+    Theme = 'theme',
 }

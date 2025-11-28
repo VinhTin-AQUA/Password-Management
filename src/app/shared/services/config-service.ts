@@ -4,7 +4,7 @@ import { remove, writeFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { AppFolderHelper } from '../helpers/app-folder';
 import { EAppFolderNames } from '../../core/enums/folder-names';
 import { EConfigFileNames } from '../../core/enums/file-names';
-import { SpreadsheetConfigModel } from '../models/spreadsheet-config';
+import { SpreadsheetConfigModel } from '../../core/models/spreadsheet-config';
 
 @Injectable({
     providedIn: 'root',

@@ -2,16 +2,16 @@ import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ResponseCommand } from '../../shared/models/response-command';
+import { ResponseCommand } from '../../core/models/response-command';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
-import { AccountModel } from '../../shared/models/account-model';
+import { AccountModel } from '../../core/models/account-model';
 import { DialogService } from '../../shared/services/dialog-service';
-import { PasscodeStore } from '../../shared/stores/passcode.store';
 import { TextInput } from '../../shared/components/text-input/text-input';
 import { PasswordInput } from '../../shared/components/password-input/password-input';
 import { TextAreaInput } from '../../shared/components/text-area-input/text-area-input';
+import { AppStore } from '../../shared/stores/app.store';
 
 @Component({
     selector: 'app-add-account',
@@ -24,7 +24,7 @@ export class AddAccount {
     submitted: boolean = false;
     form!: FormGroup;
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
-    passCode = inject(PasscodeStore);
+    appStore = inject(AppStore);
 
     constructor(
         private tauriCommandSerivce: TauriCommandSerivce,
@@ -67,7 +67,7 @@ export class AddAccount {
         const response = await this.tauriCommandSerivce.invokeCommand<ResponseCommand>(
             TauriCommandSerivce.ADD_ACCOUNT,
             {
-                passcode: this.passCode.passCode(),
+                passcode: this.appStore.passCode(),
                 password: addAccount,
             }
         );
@@ -80,7 +80,7 @@ export class AddAccount {
     }
 
     private async init() {
-        if (!this.passCode.passCode()) {
+        if (!this.appStore.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
     }

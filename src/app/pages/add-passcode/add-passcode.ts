@@ -6,8 +6,8 @@ import { StoreHelper } from '../../shared/helpers/store-helper';
 import { SettingKeys } from '../../core/enums/setting-keys';
 import { MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
-import { PasscodeStore } from '../../shared/stores/passcode.store';
 import { PasswordInput } from '../../shared/components/password-input/password-input';
+import { AppStore } from '../../shared/stores/app.store';
 
 @Component({
     selector: 'app-add-passcode',
@@ -20,7 +20,7 @@ export class AddPasscode {
     submitted: boolean = false;
     form!: FormGroup;
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
-    passcodeStore = inject(PasscodeStore);
+    appStore = inject(AppStore);
 
     constructor(private fb: FormBuilder, private router: Router) {}
 
@@ -41,8 +41,8 @@ export class AddPasscode {
             return;
         }
 
-        await StoreHelper.setValue(SettingKeys.passCode, this.form.controls['passcode'].value);
-        this.passcodeStore.updatePasscode(this.form.controls['passcode'].value);
+        await StoreHelper.setValue(SettingKeys.PassCode, this.form.controls['passcode'].value);
+        this.appStore.updatePasscode(this.form.controls['passcode'].value);
         this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.Home}`);
     }
 }

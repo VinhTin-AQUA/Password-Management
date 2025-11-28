@@ -5,12 +5,12 @@ import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
 import { QuestionCancelDialog } from '../../shared/components/question-cancel-dialog/question-cancel-dialog';
-import { AccountModel } from '../../shared/models/account-model';
+import { AccountModel } from '../../core/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { Icon } from '../../shared/components/icon/icon';
-import { PasscodeStore } from '../../shared/stores/passcode.store';
 import { AccountStore } from '../../shared/stores/accounts.store';
 import { DialogService } from '../../shared/services/dialog-service';
+import { AppStore } from '../../shared/stores/app.store';
 
 @Component({
     selector: 'app-home',
@@ -27,7 +27,7 @@ export class Home {
 
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     updateAccountStore = inject(UpdateAccountStore);
-    passCode = inject(PasscodeStore);
+    appStore = inject(AppStore);
     accountStore = inject(AccountStore);
 
     constructor(
@@ -120,7 +120,7 @@ export class Home {
         const r = await this.tauriCommandSerivce.invokeCommand<AccountModel[]>(
             TauriCommandSerivce.GET_ACCOUNTS,
             {
-                passcode: this.passCode.passCode(),
+                passcode: this.appStore.passCode(),
             }
         );
 
@@ -130,7 +130,7 @@ export class Home {
     }
 
     private async getSavedPasscode() {
-        if (!this.passCode.passCode()) {
+        if (!this.appStore.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
     }

@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectBox, SelectOption } from '../../shared/components/select-box/select-box';
+import { AppStore } from '../../shared/stores/app.store';
+import { ThemeConsts } from '../../core/consts/themes.const';
+import { StoreHelper } from '../../shared/helpers/store-helper';
+import { SettingKeys } from '../../core/enums/setting-keys';
 
 @Component({
     selector: 'app-settings',
@@ -18,21 +22,23 @@ export class Settings {
 
     // Theme list
     themes: SelectOption[] = [
-        { label: 'Light', value: 'light', icon: '⬜' },
-        { label: 'Dark', value: 'dark', icon: '⬛' },
-        { label: 'Dracula', value: 'dracula', icon: '🟪' },
-        { label: 'Monokai', value: 'monokai', icon: '🟩' },
-        { label: 'Github Light', value: 'github-light', icon: '🟩' },
-        { label: 'Github Dark', value: 'github-dark', icon: '🟩' },
+        { label: ThemeConsts.Light.name, value: ThemeConsts.Light.value, icon: '⬜' },
+        { label: ThemeConsts.Dark.name, value: ThemeConsts.Dark.value, icon: '⬛' },
+        { label: ThemeConsts.Dracula.name, value: ThemeConsts.Dracula.value, icon: '🟪' },
+        { label: ThemeConsts.Monokai.name, value: ThemeConsts.Monokai.value, icon: '🟩' },
+        { label: ThemeConsts.GithubLight.name, value: ThemeConsts.GithubLight.value, icon: '🟩' },
+        { label: ThemeConsts.GithubDark.name, value: ThemeConsts.GithubDark.value, icon: '🟩' },
     ];
 
     // Selected
     selectedLanguage = this.languages[0];
-    selectedTheme = this.themes[0];
 
     // Toggle states
     openLanguage = false;
     openTheme = false;
+    appStore = inject(AppStore);
+
+    ngOnInit() {}
 
     toggleLanguage() {
         this.openLanguage = !this.openLanguage;
@@ -49,8 +55,9 @@ export class Settings {
         this.openLanguage = false;
     }
 
-    selectTheme(theme: any) {
-        this.selectedTheme = theme;
+    async selectTheme(theme: any) {
+        this.appStore.updateTheme(theme);
+        await StoreHelper.setValue(SettingKeys.Theme, theme);
         this.openTheme = false;
     }
 

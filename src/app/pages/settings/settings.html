@@ -12,7 +12,11 @@
         <label class="text-primary block font-semibold mb-2">Theme</label>
 
         <!-- Dropdown -->
-        <app-select-box [options]="themes"></app-select-box>
+        <app-select-box
+            (selectionChange)="selectTheme($event)"
+            [selectedValue]="appStore.theme()"
+            [options]="themes"
+        ></app-select-box>
     </div>
 
     <!-- Export Button -->

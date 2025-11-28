@@ -1,6 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { TextInput } from '../text-input/text-input';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -11,7 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => TextInput),
+            useExisting: forwardRef(() => TextAreaInput),
             multi: true,
         },
     ],

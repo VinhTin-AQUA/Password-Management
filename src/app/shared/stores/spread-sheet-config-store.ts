@@ -1,5 +1,5 @@
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
-import { SpreadsheetConfigModel } from '../models/spreadsheet-config';
+import { SpreadsheetConfigModel } from '../../core/models/spreadsheet-config';
 
 const initialState: SpreadsheetConfigModel = {
     spreadSheetId: '',

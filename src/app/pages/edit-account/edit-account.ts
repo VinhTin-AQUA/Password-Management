@@ -5,17 +5,18 @@ import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
-import { ResponseCommand } from '../../shared/models/response-command';
-import { AccountModel } from '../../shared/models/account-model';
+import { ResponseCommand } from '../../core/models/response-command';
+import { AccountModel } from '../../core/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { DialogService } from '../../shared/services/dialog-service';
-import { PasscodeStore } from '../../shared/stores/passcode.store';
 import { TextInput } from '../../shared/components/text-input/text-input';
 import { TextAreaInput } from '../../shared/components/text-area-input/text-area-input';
+import { AppStore } from '../../shared/stores/app.store';
+import { PasswordInput } from '../../shared/components/password-input/password-input';
 
 @Component({
     selector: 'app-edit-account',
-    imports: [TranslatePipe, ReactiveFormsModule, TextInput, TextAreaInput],
+    imports: [TranslatePipe, ReactiveFormsModule, TextInput, TextAreaInput, PasswordInput],
     templateUrl: './edit-account.html',
     styleUrl: './edit-account.scss',
 })
@@ -23,7 +24,7 @@ export class EditAccount {
     showPassword = false;
     submitted: boolean = false;
     form!: FormGroup;
-    passCode = inject(PasscodeStore);
+    appStore = inject(AppStore);
 
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     updateAccountStore = inject(UpdateAccountStore);
@@ -45,6 +46,9 @@ export class EditAccount {
             note: [''],
         });
         await this.init();
+
+        console.log(this.updateAccountStore.password());
+        
     }
 
     async save() {
@@ -70,7 +74,7 @@ export class EditAccount {
         const response = await this.tauriCommandSerivce.invokeCommand<ResponseCommand>(
             TauriCommandSerivce.UPDATE_ACCOUNT,
             {
-                passcode: this.passCode.passCode(),
+                passcode: this.appStore.passCode(),
                 password: updateAccount,
             }
         );
@@ -83,7 +87,7 @@ export class EditAccount {
     }
 
     private async init() {
-        if (!this.passCode.passCode()) {
+        if (!this.appStore.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
 

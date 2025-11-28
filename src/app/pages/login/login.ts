@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { Icon } from '../../shared/components/icon/icon';
-import { PasscodeStore } from '../../shared/stores/passcode.store';
 import { PasswordInput } from '../../shared/components/password-input/password-input';
+import { AppStore } from '../../shared/stores/app.store';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +17,7 @@ export class Login {
     password = '';
     errorMessage: string = '';
     showPassword: boolean = false;
-    passcodeStore = inject(PasscodeStore);
+    appStore = inject(AppStore);
 
     constructor(private router: Router) {}
 
@@ -26,7 +26,7 @@ export class Login {
     }
 
     onLogin() {
-        if (this.passcodeStore.passCode() !== this.password) {
+        if (this.appStore.passCode() !== this.password) {
             this.errorMessage = 'addPasscodeForm.passcodeIsNotValid';
             return;
         }
@@ -39,7 +39,7 @@ export class Login {
     }
 
     private async Init() {
-        if (!this.passcodeStore.passCode()) {
+        if (!this.appStore.passCode()) {
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
         }
     }
