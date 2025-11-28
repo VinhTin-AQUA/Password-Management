@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
+const spriteFileName = 'sprite.svg';
+
 const inputDir = path.join(__dirname, '../public/icons');
 const outputDir = path.join(__dirname, '../public/icons');
-const outputFile = path.join(outputDir, 'sprite.svg');
+const outputFile = path.join(outputDir, spriteFileName);
 
 // Tạo thư mục output nếu chưa có
 if (!fs.existsSync(outputDir)) {
@@ -12,7 +14,7 @@ if (!fs.existsSync(outputDir)) {
 
 let symbols = '';
 
-const files = fs.readdirSync(inputDir).filter((f) => f.endsWith('.svg'));
+const files = fs.readdirSync(inputDir).filter((f) => f.endsWith('.svg') && f !== spriteFileName);
 
 files.forEach((file) => {
     const filePath = path.join(inputDir, file);

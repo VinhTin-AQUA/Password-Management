@@ -33,7 +33,7 @@
 
     /* ============ border ============ */
     .border-primary {
-        color: var(--color-text);
+        color: var(--color-border);
     }
 
     .border-primary-hover,

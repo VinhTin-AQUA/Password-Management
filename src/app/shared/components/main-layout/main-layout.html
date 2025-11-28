@@ -9,17 +9,7 @@
                 (click)="toggleDrawer()"
                 class="text-primary hover:bg-primary-hover p-2 rounded-lg transition-colors duration-200"
             >
-                <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <path d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <app-icon name="menu-hamburger"></app-icon>
             </button>
 
             <h1 class="text-xl font-semibold tracking-wide">{{ 'app.title' | translate }}</h1>
@@ -65,17 +55,7 @@
                 (click)="toggleDrawer()"
                 class="text-primary hover:bg-primary-hover p-2 rounded transition-colors duration-200"
             >
-                <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <path d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <app-icon name="xmark"></app-icon>
             </button>
         </div>
 

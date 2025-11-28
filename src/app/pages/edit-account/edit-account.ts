@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TranslatePipe } from '@ngx-translate/core';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { SettingKeys } from '../../core/enums/setting-keys';
 import { StoreHelper } from '../../shared/helpers/store-helper';

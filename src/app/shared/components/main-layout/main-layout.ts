@@ -3,10 +3,11 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { NavItem } from '../../models/nav-item';
 import { filter } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Icon } from '../icon/icon';
 
 @Component({
     selector: 'app-main-layout',
-    imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe],
+    imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, Icon],
     templateUrl: './main-layout.html',
     styleUrl: './main-layout.scss',
 })
