@@ -13,6 +13,17 @@ body {
 html {
     scrollbar-gutter: stable; /* Không dịch chuyển nội dung khi xuất hiện scrollbar */
 }
+/* 
+html,
+body {
+	margin: 0;
+	padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(
+			safe-area-inset-left
+		);
+	background-color: #fff;
+	height: 100%;
+} */
+
 
 /* Scrollbar gọn, nhẹ và không chiếm vùng hiển thị */
 ::-webkit-scrollbar {
