@@ -25,6 +25,10 @@ jobs:
 
             - name: Setup Android SDK
               uses: android-actions/setup-android@v3
+              with:
+                api-level: 35
+                build-tools: "35.0.0"
+                ndk-version: "27.0.11902837"
 
             - name: Install NDK
               run: sdkmanager "ndk;27.0.11902837"
@@ -50,11 +54,11 @@ jobs:
 
             - name: Build app bundle
               run: npm run tauri android build -- --target aarch64
-              env:
-                JAVA_HOME: /usr/lib/jvm/adoptopenjdk-17-hotspot-amd64
-                ANDROID_HOME: $HOME/Android/Sdk
-                NDK_HOME: $HOME/Android/Sdk/ndk/27.0.11902837
-                PATH: $JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+              # env:
+              #   JAVA_HOME: /usr/lib/jvm/adoptopenjdk-17-hotspot-amd64
+              #   ANDROID_HOME: $HOME/Android/Sdk
+              #   NDK_HOME: $HOME/Android/Sdk/ndk/27.0.11902837
+              #   PATH: $JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
 
 
             # - name: Extract android signing key from env
