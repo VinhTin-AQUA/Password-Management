@@ -102,7 +102,7 @@ jobs:
             - name: Publish
               uses: softprops/action-gh-release@v1
               with:
-                  draft: true
+                  draft: false
                   name: App v${{ steps.package-version.outputs.current-version}}
                   tag_name: v${{ steps.package-version.outputs.current-version}}
                   generate_release_notes: true
