@@ -62,12 +62,13 @@ jobs:
             #       NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.11902837
 
             - name: Build app bundle
-              run: npm run tauri android build -- --target aarch64 --verbose
-              # env:
-              #   JAVA_HOME: /usr/lib/jvm/adoptopenjdk-17-hotspot-amd64
-              #   ANDROID_HOME: $HOME/Android/Sdk
-              #   NDK_HOME: $HOME/Android/Sdk/ndk/27.0.11902837
-              #   PATH: $JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+              env:
+                KEYSTORE_PATH: newtun-release-key.keystore
+                STORE_PASSWORD: abcdef@123
+                KEY_ALIAS: newtunkey
+                KEY_PASSWORD: abcdef@123
+              run: |
+                npm run tauri android build -- --target aarch64 --verbose
 
 
             # - name: Extract android signing key from env
